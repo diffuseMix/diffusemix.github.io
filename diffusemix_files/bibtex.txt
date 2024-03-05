@@ -1,0 +1,6 @@
+@article{diffuseMix2024,
+  title={DIFFUSEMIX: Label-Preserving Data Augmentation with Diffusion Models},
+  author={Khawar Islam, Muhammad Zaigham Zaheer, Arif Mahmood, Karthik Nandakumar},
+  booktitle={arXiv preprint},
+  year={2024}
+}

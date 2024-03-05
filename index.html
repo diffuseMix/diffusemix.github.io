@@ -1,0 +1,131 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>DiffuseMix</title>
+  <link href="diffusemix_files/style.css" rel="stylesheet">
+  <script type="text/javascript" src="diffusemix_files/jquery.mlens-1.0.min.html"></script>
+  <script type="text/javascript" src="diffusemix_files/jquery.html"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+<div class="content">
+  <h1><strong><span style="font-variant: small-caps;">DiffuseMix</span>: Label-Preserving Data Augmentation with Diffusion Models</strong></h1>
+<p id="authors">
+    <a href="https://khawar-islam.github.io/">Khawar Islam<sup>1</sup></a>,
+    <a href="https://mbzuai.ac.ae/">Muhammad Zaigham Zaheer<sup>2</sup></a>,
+    <a href="https://itu.edu.pk/">Arif Mahmood<sup>3</sup></a>,
+    <a href="https://mbzuai.ac.ae/">Karthik Nandakumar<sup>2</sup></a>
+    <br><br>
+    <span style="font-size: 18px">
+        <sup>1</sup><span style="color: rgb(148, 0, 211);">FloppyDisk.AI</span>,
+        <sup>2</sup><span style="color: rgb(148, 0, 211);">Mohamed bin Zayed University of Artificial Intelligence</span>,
+        <sup>3</sup><span style="color: rgb(148, 0, 211);">Information Technology University</span>
+    </span>
+</p>
+
+
+
+  <br>
+  <img src="diffusemix_files/teaser_static.jpg" class="teaser-gif" style="width:100%;"><br>
+  <h3 style="text-align:center"><em>For each input image DiffuseMix combines natural and generated image obtained from bespoke conditional prompts.…</em></h3>
+    <font size="+2">
+          <p style="text-align: center;">
+            <a href="" target="_blank">[Paper]</a> &nbsp;
+            <a href="" target="_blank">[Oxford Flower102]</a> &nbsp;
+            <a href="" target="_blank">[Supplementary]</a> &nbsp;
+            <a href="" target="_blank">[Code]</a> &nbsp;
+            <a href="" target="_blank">[Poster]</a> &nbsp;
+            <a href="" target="_blank">[Video]</a> &nbsp;
+            <a href="diffusemix_files/bibtex.txt" target="_blank">[BibTeX]</a>
+          </p>
+    </font>
+</div>
+
+<div class="content">
+  <h2 style="text-align:center;">Abstract</h2>
+  <p>Recently, a number of image-mixing-based augmentation techniques have been introduced to improve the generalization of deep neural networks.
+    In these techniques, two or more randomly selected natural images are mixed together to generate an augmented image.
+    Such methods may not only omit important portions of the input images but also introduce label ambiguities by mixing images across labels resulting in misleading supervisory signals.
+    To address these limitations, we propose DiffuseMix, a novel data augmentation technique that leverages a diffusion model to reshape training images,  supervised by our bespoke conditional prompts.
+    First, concatenation of a partial natural image and its generated counterpart is obtained which helps in avoiding the generation of unrealistic images or label ambiguities.
+    Then, to enhance resilience against adversarial attacks and improves safety measures, a randomly selected structural pattern from a set of fractal images is blended into the concatenated image to form the final augmented image for training.
+    Our empirical results on seven different datasets reveal that DiffuseMix achieves superior performance compared to existing state-of-the-art methods on tasks including general classification, fine-grained classification, fine-tuning, data scarcity, and adversarial robustness.</p>
+</div>
+
+<div class="content">
+  <h2>Background</h2>
+  <p> The top row represents mixup methods, which blend two source and target images. For instance, traditional methods like CutMix and MixUp modify training images by pasting sections or blending images, respectively, along with their labels. However, these techniques, focused on altering real training images, offer limited improvement and remain vulnerable to the elusive threats of adversarial attacks. The second row illustrates basic transformations along with automated data augmentation methods. It also combines two augmentations into a group, forming a new category named 'group of augmentations.</p>
+  <br>
+  <img class="summary-img" src="diffusemix_files/background.png" style="width:100%;"> <br>
+</div>
+
+<div class="content">
+  <h2>Method</h2>
+  <p>     The proposed <span style="font-variant: small-caps;">DiffuseMix</span> is an effective data augmentation technique which can be used to enhance the robustness and generalization of the deep learning models. Formally, <span>\( I_i \in \mathbb{R}^{h\times w \times c} \)</span> is an image from the training dataset, <span>\( \mathcal{D}_{\text{mix}}(\cdot): \mathbb{R}^{h\times w \times c} \to \mathbb{R}^{h\times w \times c} \)</span> denotes our data augmentation method. To obtain the final augmented image \( A_{ijuv} \), input image \( I_i \) goes through proposed generation using prompt \( p_j \), concatenation using mask \( M_u \), and blending using fractal image \( F_v \). The overall augmentation process in Algorithm is \( A_{ijuv} = \mathcal{D}_{\text{mix}}(I_i, p_j, M_u, F_v, \lambda) \).</p>
+  <br>
+  <img class="summary-img" src="diffusemix_files/arhitecture.jpg" style="width:100%;"> <br>
+</div>
+
+
+<div class="content">
+  <h2>Textual Prompt Selection</h2>
+  <p>In order to ensure that only appropriate prompts are applied, a bespoke textual library of <em>filters-like</em> global visual effects is predefined: <span style="color: rgb(148, 0, 211);"><em>'autumn', 'snowy', 'sunset', 'watercolor art', 'rainbow', 'aurora', 'mosaic','ukiyo-e', and 'a sketch with crayon'</em></span>. These prompts are selected because of their generic nature and are applicable to a wide variety of images. Secondly, these do not alter the image structure significantly while producing a global visual effect in the image. Each prompt in the textual library is appended with a template 'A transformed version of image into <em>prompt</em>' to form a particular input to the diffusion model. Examples of images generated through these prompts are shown in below figure. More visual examples and discussion on prompt selection are provided in <span style="color: rgb(148, 0, 211);">Supplementary Section 3</span>.</p>
+<img class="summary-img" src="diffusemix_files/promtpsViz.jpg" style="width:100%;">
+</div>
+
+
+
+<div class="content">
+  <h2>Oxford Flower102</h2>
+  <p>Illustration of original training images and <span style="font-variant: small-caps;">DiffuseMix</span> augmented images from the Oxford Flower102 dataset. <strong>First row:</strong> showcases original, unaltered images of various flowers, including <em>poinsettia, barbeton daisy, gazania, dandelion,</em> and <em>Magnolia</em> classes. <strong>Second row:</strong> illustrates the transformative effects of the <span style="font-variant: small-caps;">DiffuseMix</span> augmentation method. The effects of our custom-tailored prompts-based generation are visible on the generated portion of each image. Overall, <span style="font-variant: small-caps;">DiffuseMix</span> results in a diverse array of images with sufficient structural complexity and diversity to train robust classifiers.</p>
+  <br>
+  <img class="summary-img" src="diffusemix_files/diffuseMix_flower102.png" style="width:100%;"> <br>
+</div>
+
+
+<div class="content">
+  <h2>Caltech-UCSD Birds-200-2011 (CUB-200-2011)</h2>
+  <p>Original and <span style="font-variant: small-caps;">DiffuseMix</span> augmented bird images from the Caltech-UCSD Birds-200-2011 dataset. <strong>Top row:</strong> displays a selection of original, high-resolution bird images, capturing the natural beauty and diversity of species such as the <em>eastern towhee, horned lark, rusty blackbird, white sparrow,</em> and <em>european goldfinch</em>. <strong>Bottom row:</strong> demonstrates the augmented images obtained using <span style="font-variant: small-caps;">DiffuseMix</span>. The augmented images are visually striking and contextually varied representations of the original subjects.</p>
+  <br>
+  <img class="summary-img" src="diffusemix_files/diffuseMix_brids.png" style="width:100%;"> <br>
+</div>
+
+<div class="content">
+  <h2>Stanford Cars</h2>
+  <p><strong>First row:</strong> showcases original images from the Stanford Cars benchmark dataset, featuring unaltered depictions of various car models including a <em>lamborghini, audi R8, bentley, ford edge</em> and <em>audi S5</em>. <strong>Second row:</strong> presents the images transformed using our <span style="font-variant: small-caps;">DiffuseMix</span> method. The effects of prompts are visible in the generated portions of the images. For example, <em>lamborghini</em> is changed to green when the <em>aurora</em> prompt is applied, creating a vibrant image. The front side of <em>audi R8</em> becomes more color-rich when it is generated with the <em>rainbow</em> prompt. The ambiance (background context) of <em>bentley</em> transforms significantly when the <em>autumn</em> prompt is used. Similar diverse transformations are observed in other examples. These augmented images demonstrate the capability of <span style="font-variant: small-caps;">DiffuseMix</span> in generating visually enriched augmented images for better generalization.</p>
+  <br>
+  <img class="summary-img" src="diffusemix_files/cars.png" style="width:100%;"> <br>
+</div>
+
+
+<div class="content">
+  <h2>FGVC-Aircraft</h2>
+  <p>Illustration of original and <span style="font-variant: small-caps;">DiffuseMix</span> augmented Aircraft images from the FGVC-Aircraft benchmark dataset. <strong>Top row:</strong> presents original aircraft images, each portraying a distinct airplane including the 737-200, 727-200, 737-700, 777-200, and A330-300. These images highlight the design resemblance of various aircraft models, serving as a challenging resource for aircraft fined-grained image classification studies. <strong>Bottom row:</strong> showcases the augmented images obtained using <span style="font-variant: small-caps;">DiffuseMix</span> for each corresponding input image. As seen, the method reimagined each aircraft with unique prompts such as <em>sunset, autumn, snowy</em> and <em>ukiyo</em> resulting in a rich visual appearance with diverse contexts. This also illustrates how image augmentation can be used to simulate different environmental and stylistic scenarios, potentially enhancing the robustness and versatility of the dataset for training robust neural networks.</p>
+  <br>
+  <img class="summary-img" src="diffusemix_files/airplanes.png" style="width:100%;"> <br>
+</div>
+
+
+
+
+<div class="content">
+  <h2>BibTex</h2>
+  <code> @article{diffuseMix2024,<br>
+  &nbsp;&nbsp;title={DiffuseMix: Label-Preserving Data Augmentation with Diffusion Models},<br>
+  &nbsp;&nbsp;author={Khawar Islam, Muhammad Zaigham Zaheer, Arif Mahmood, Karthik Nandakumar},<br>
+  &nbsp;&nbsp;booktitle={arXiv preprint},<br>
+  &nbsp;&nbsp;year={2024}<br>
+  } </code> 
+</div>
+
+<div class="content" id="acknowledgements">
+  <p><strong>Acknowledgements</strong>:
+    We thank Dr. Zaigham Zaheer friend for providing us with their support.
+  </p>
+</div>
+</body>
+
+</html>
