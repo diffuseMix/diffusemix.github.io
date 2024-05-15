@@ -30,7 +30,7 @@
 
   <br>
   <img src="diffusemix_files/teaser_static.jpg" class="teaser-gif" style="width:100%;"><br>
-  <h3 style="text-align:center"><em>For each input image DiffuseMix combines natural and generated image obtained from bespoke conditional prompts.…</em></h3>
+  <h3 style="text-align:center"><em>For each input image DiffuseMix combines natural and generated image obtained from bespoke conditional prompts</em></h3>
     <font size="+2">
           <p style="text-align: center;">
             <a href="diffusemix_files/DiffuseMix_CVPR_24.pdf" target="_blank">[Paper]</a> &nbsp;
@@ -57,14 +57,14 @@
 
 <div class="content">
   <h2>Background</h2>
-  <p> The top row represents mixup methods, which blend two source and target images. For instance, traditional methods like CutMix and MixUp modify training images by pasting sections or blending images, respectively, along with their labels. However, these techniques, focused on altering real training images, offer limited improvement and remain vulnerable to the elusive threats of adversarial attacks. The second row illustrates basic transformations along with automated data augmentation methods. It also combines two augmentations into a group, forming a new category named 'group of augmentations.</p>
+  <p> The top row represents mixup methods, which blend source and target images. For instance, traditional methods like CutMix and MixUp modify training images by pasting sections or blending images, respectively, along with their labels. These techniques may result in label ambiguity and remain vulnerable to the elusive threats of adversarial attacks. The second row illustrates automated data augmentation methods that include basic transformations applied on the source images directly. These methods avoid label ambiguity, however, offer limited performance gain. The goal of DiffuseMix is to eraticate label ambiguity while demonstrating better generlization and protection against adversarial attacks.</p>
   <br>
   <img class="summary-img" src="diffusemix_files/background.png" style="width:100%;"> <br>
 </div>
 
 <div class="content">
   <h2>Method</h2>
-  <p>     The proposed <span style="font-variant: small-caps;">DiffuseMix</span> is an effective data augmentation technique which can be used to enhance the robustness and generalization of the deep learning models. Formally, <span>\( I_i \in \mathbb{R}^{h\times w \times c} \)</span> is an image from the training dataset, <span>\( \mathcal{D}_{\text{mix}}(\cdot): \mathbb{R}^{h\times w \times c} \to \mathbb{R}^{h\times w \times c} \)</span> denotes our data augmentation method. To obtain the final augmented image \( A_{ijuv} \), input image \( I_i \) goes through proposed generation using prompt \( p_j \), concatenation using mask \( M_u \), and blending using fractal image \( F_v \). The overall augmentation process in Algorithm is \( A_{ijuv} = \mathcal{D}_{\text{mix}}(I_i, p_j, M_u, F_v, \lambda) \).</p>
+  <p>     The proposed <span style="font-variant: small-caps;">DiffuseMix</span> is an effective data augmentation technique which can be used to enhance the robustness and generalization of the deep learning models. Formally, <span>\( I_i \in \mathbb{R}^{h\times w \times c} \)</span> is an image from the training dataset, <span>\( \mathcal{D}_{\text{mix}}(\cdot): \mathbb{R}^{h\times w \times c} \to \mathbb{R}^{h\times w \times c} \)</span> denotes our data augmentation method. To obtain the final augmented image \( A_{ijuv} \), input image \( I_i \) goes through proposed generation using prompt \( p_j \), concatenation using mask \( M_u \), and blending using fractal image \( F_v \). The overall augmentation process can be represented as \( A_{ijuv} = \mathcal{D}_{\text{mix}}(I_i, p_j, M_u, F_v, \lambda) \).</p>
   <br>
   <img class="summary-img" src="diffusemix_files/diffuseMix.gif" style="width:100%;"> <br>
 </div>
@@ -72,7 +72,7 @@
 
 <div class="content">
   <h2>Textual Prompt Selection</h2>
-  <p>In order to ensure that only appropriate prompts are applied, a bespoke textual library of <em>filters-like</em> global visual effects is predefined: <span style="color: rgb(148, 0, 211);"><em>'autumn', 'snowy', 'sunset', 'watercolor art', 'rainbow', 'aurora', 'mosaic','ukiyo-e', and 'a sketch with crayon'</em></span>. These prompts are selected because of their generic nature and are applicable to a wide variety of images. Secondly, these do not alter the image structure significantly while producing a global visual effect in the image. Each prompt in the textual library is appended with a template 'A transformed version of image into <em>prompt</em>' to form a particular input to the diffusion model. Examples of images generated through these prompts are shown in below figure. More visual examples and discussion on prompt selection are provided in <span style="color: rgb(148, 0, 211);">Supplementary Section 3</span>.</p>
+  <p>In order to ensure that only appropriate prompts are applied, a bespoke textual library of <em>filter-like</em> global visual effects is predefined: <span style="color: rgb(148, 0, 211);"><em>'autumn', 'snowy', 'sunset', 'watercolor art', 'rainbow', 'aurora', 'mosaic','ukiyo-e', and 'a sketch with crayon'</em></span>. These prompts are selected because of their generic nature and are applicable to a wide variety of images. Secondly, these do not alter the image structure significantly while producing a global visual effect in the image. Each prompt in the textual library is appended with a template 'A transformed version of image into <em>prompt</em>' to form a particular input to the diffusion model. Examples of images generated through these prompts are shown in below figure. More visual examples and discussion on prompt selection are provided in <span style="color: rgb(148, 0, 211);">Supplementary Section 3 of our manuscript.</span>.</p>
 <img class="summary-img" src="diffusemix_files/promtpsViz.jpg" style="width:100%;">
 </div>
 
@@ -103,7 +103,7 @@
 
 <div class="content">
   <h2>FGVC-Aircraft</h2>
-  <p>Illustration of original and <span style="font-variant: small-caps;">DiffuseMix</span> augmented Aircraft images from the FGVC-Aircraft benchmark dataset. <strong>Top row:</strong> presents original aircraft images, each portraying a distinct airplane including the 737-200, 727-200, 737-700, 777-200, and A330-300. These images highlight the design resemblance of various aircraft models, serving as a challenging resource for aircraft fined-grained image classification studies. <strong>Bottom row:</strong> showcases the augmented images obtained using <span style="font-variant: small-caps;">DiffuseMix</span> for each corresponding input image. As seen, the method reimagined each aircraft with unique prompts such as <em>sunset, autumn, snowy</em> and <em>ukiyo</em> resulting in a rich visual appearance with diverse contexts. This also illustrates how image augmentation can be used to simulate different environmental and stylistic scenarios, potentially enhancing the robustness and versatility of the dataset for training robust neural networks.</p>
+  <p>Illustration of original and <span style="font-variant: small-caps;">DiffuseMix</span> augmented Aircraft images from the FGVC-Aircraft benchmark dataset. <strong>Top row:</strong> presents original aircraft images, each portraying a distinct airplane including the 737-200, 727-200, 737-700, 777-200, and A330-300. These images highlight the design resemblance of various aircraft models, serving as a challenging resource for fined-grained image classification studies. <strong>Bottom row:</strong> showcases the augmented images obtained using <span style="font-variant: small-caps;">DiffuseMix</span> for each corresponding input image. As seen, the method reimagined each aircraft with our proposed prompts such as <em>sunset, autumn, snowy</em> and <em>ukiyo</em> resulting in a rich visual appearance with diverse contexts. This also illustrates how image augmentation can be used to simulate different environmental and stylistic scenarios, potentially enhancing the robustness and versatility of the dataset for training robust neural networks.</p>
   <br>
   <img class="summary-img" src="diffusemix_files/airplanes.png" style="width:100%;"> <br>
 </div>
@@ -123,7 +123,7 @@
 
 <div class="content" id="acknowledgements">
   <p><strong>Acknowledgements</strong>:
-    We are thankful Hamza Saleem from UST, South Korea for the fruitful insights. Arif Mahmood is funded by Information Technology University, Punjab. We are also thankful to reviewers 5MBR, 5efz, RCMo and Area Chairs.
+    We are thankful to Hamza Saleem and Shah Nawaz for the fruitful insights. We are also thankful to reviewers 5MBR, 5efz, RCMo and all Area Chairs.
   </p>
 </div>
 </body>
