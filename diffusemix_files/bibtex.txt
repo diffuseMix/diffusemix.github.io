@@ -1,6 +1,7 @@
-@article{islam2024diffusemix,
+@inproceedings{islam2024diffusemix,
   title={DiffuseMix: Label-Preserving Data Augmentation with Diffusion Models},
   author={Islam, Khawar and Zaheer, Muhammad Zaigham and Mahmood, Arif and Nandakumar, Karthik},
-  journal={arXiv preprint arXiv:2405.14881},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={27621--27630},
   year={2024}
 }
